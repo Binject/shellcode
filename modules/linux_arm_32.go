@@ -4,14 +4,14 @@ import "github.com/awgh/shellcode/api"
 
 func init() {
 	api.RegisterShellCode(api.Linux, api.Arm, api.Bits32,
-		"reverse_tcp_shell", reverse_tcp_shell_Generate)
+		"reverse_tcp_shell", reverse_tcp_shell_linux_arm_32)
 	api.RegisterShellCode(api.Linux, api.Arm, api.Bits32,
-		"reverse_tcp_stager", reverse_tcp_stager_Generate)
+		"reverse_tcp_stager", reverse_tcp_stager_linux_arm_32)
 	api.RegisterShellCode(api.Linux, api.Arm, api.Bits32,
-		"user_shellcode", user_shellcode_Generate)
+		"user_shellcode", user_shellcode_linux_arm_32)
 }
 
-func reverse_tcp_shell_Generate(params api.Parameters) ([]byte, error) {
+func reverse_tcp_shell_linux_arm_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
@@ -67,7 +67,7 @@ func reverse_tcp_shell_Generate(params api.Parameters) ([]byte, error) {
 
 }
 
-func reverse_tcp_stager_Generate(params api.Parameters) ([]byte, error) {
+func reverse_tcp_stager_linux_arm_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
@@ -123,7 +123,7 @@ func reverse_tcp_stager_Generate(params api.Parameters) ([]byte, error) {
 	return []byte(shellcode1), nil
 }
 
-func user_shellcode_Generate(params api.Parameters) ([]byte, error) {
+func user_shellcode_linux_arm_32(params api.Parameters) ([]byte, error) {
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
 	supplied_shellcode := params.ShellCode

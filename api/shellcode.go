@@ -88,6 +88,16 @@ func PackAddr(addr uint32) (string, error) {
 	return string(buf.Bytes()), nil
 }
 
+// PackAddr64 - packs a jump address
+func PackAddr64(addr uint64) (string, error) {
+	buf := new(bytes.Buffer)
+	err := binary.Write(buf, binary.LittleEndian, addr)
+	if err != nil {
+		return "", err
+	}
+	return string(buf.Bytes()), nil
+}
+
 // PackPort - packs a port
 func PackPort(port uint16) (string, error) {
 	buf := new(bytes.Buffer)

