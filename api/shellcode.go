@@ -21,6 +21,8 @@ const (
 	Linux Os = "linux"
 	// FreeBSD flag for FreeBSD OS
 	FreeBSD Os = "freebsd"
+	// Darin flag for Darwin / Mac OS
+	Darwin Os = "darwin"
 
 	// Architecture Options
 

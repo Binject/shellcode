@@ -27,6 +27,12 @@ func main() {
 		osFlag = api.Windows
 	case "freebsd":
 		osFlag = api.FreeBSD
+	case "osx":
+		fallthrough
+	case "macos":
+		fallthrough
+	case "darwin":
+		osFlag = api.Darwin
 	default:
 		log.Fatal("Unknown OS")
 	}
