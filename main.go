@@ -4,7 +4,9 @@ import (
 	"flag"
 	"log"
 
-	"github.com/awgh/shellcode"
+	"github.com/awgh/shellcode/api"
+
+	_ "github.com/awgh/shellcode/modules"
 )
 
 func main() {
@@ -15,43 +17,43 @@ func main() {
 	flag.StringVar(&bit, "b", "64", "Bits (of the Architecture): 32 or 64")
 	flag.Parse()
 
-	var osFlag shellcode.Os
+	var osFlag api.Os
 	switch os {
 	case "linux":
-		osFlag = shellcode.Linux
+		osFlag = api.Linux
 	case "win":
 		fallthrough
 	case "windows":
-		osFlag = shellcode.Windows
+		osFlag = api.Windows
 	case "freebsd":
-		osFlag = shellcode.FreeBSD
+		osFlag = api.FreeBSD
 	default:
 		log.Fatal("Unknown OS")
 	}
 
-	var archFlag shellcode.Arch
+	var archFlag api.Arch
 	switch arch {
 	case "x86":
 		fallthrough
 	case "amd64":
 		fallthrough
 	case "intel":
-		archFlag = shellcode.Intel
+		archFlag = api.Intel
 	case "arm":
-		archFlag = shellcode.Arm
+		archFlag = api.Arm
 	default:
 		log.Fatal("Unknown Architecture")
 	}
 
-	var bitsFlag shellcode.Bits
+	var bitsFlag api.Bits
 	switch bit {
 	case "32":
-		bitsFlag = shellcode.Bits32
+		bitsFlag = api.Bits32
 	case "64":
-		bitsFlag = shellcode.Bits64
+		bitsFlag = api.Bits64
 	default:
 		log.Fatal("Unknown Bits")
 	}
 
-	shellcode.PrintShellCodes(osFlag, archFlag, bitsFlag)
+	api.PrintShellCodes(osFlag, archFlag, bitsFlag)
 }

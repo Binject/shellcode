@@ -1,4 +1,4 @@
-package shellcode
+package api
 
 import (
 	"bytes"
@@ -36,14 +36,6 @@ const (
 	// Bits64 flag for 64 bit architectures
 	Bits64 Bits = "64"
 )
-
-// Parameters - config arguments for shellcode generating modules
-type Parameters struct {
-	Ip        string
-	Port      uint16
-	Entry     uint32
-	ShellCode []byte
-}
 
 // Generator - type for a shellcode generator
 type Generator struct {

