@@ -1,5 +1,5 @@
 # shellcode
-Shellcode library as a Go package
+Shellcode library as a Go package.
 
 go build github.com/awgh/shellcode
 
