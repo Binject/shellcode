@@ -80,8 +80,8 @@ func PrintShellCodes(os Os, arch Arch, bit Bits) {
 	}
 }
 
-// PackAddr - packs a jump address
-func PackAddr(addr uint32) (string, error) {
+// PackUint16 - packs a jump address
+func PackUint16(addr uint16) (string, error) {
 	buf := new(bytes.Buffer)
 	err := binary.Write(buf, binary.LittleEndian, addr)
 	if err != nil {
@@ -90,8 +90,18 @@ func PackAddr(addr uint32) (string, error) {
 	return string(buf.Bytes()), nil
 }
 
-// PackAddr64 - packs a jump address
-func PackAddr64(addr uint64) (string, error) {
+// PackUint32 - packs a jump address
+func PackUint32(addr uint32) (string, error) {
+	buf := new(bytes.Buffer)
+	err := binary.Write(buf, binary.LittleEndian, addr)
+	if err != nil {
+		return "", err
+	}
+	return string(buf.Bytes()), nil
+}
+
+// PackUint64 - packs a jump address
+func PackUint64(addr uint64) (string, error) {
 	buf := new(bytes.Buffer)
 	err := binary.Write(buf, binary.LittleEndian, addr)
 	if err != nil {

