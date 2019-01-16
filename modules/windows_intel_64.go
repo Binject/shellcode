@@ -37,7 +37,7 @@ func iat_reverse_tcp_inline_win_intel_64(params api.Parameters) ([]byte, error) 
 	port := params.Port
 	entry := params.Entry64
 	var LoadLibraryA, GetProcAddress, ImageBase uint64
-	ip := params.Ip
+	ip := params.IP
 	var val uint64
 
 	/*
@@ -239,7 +239,7 @@ func iat_reverse_tcp_inline_win_intel_64(params api.Parameters) ([]byte, error) 
 func iat_reverse_tcp_inline_threaded_win_intel_64(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	var LoadLibraryA, GetProcAddress, ImageBase uint64
-	ip := params.Ip
+	ip := params.IP
 	var val uint64
 	/*
 	   Complete IAT based payload includes spawning of thread.
@@ -648,7 +648,7 @@ func iat_reverse_tcp_stager_threaded_win_intel_64(params api.Parameters) ([]byte
 	port := params.Port
 	entry := params.Entry64
 	var LoadLibraryA, GetProcAddress, ImageBase, VirtualAlloc, CreateThread uint64
-	ip := params.Ip
+	ip := params.IP
 	var val uint64
 
 	/*
@@ -1046,7 +1046,7 @@ func iat_user_shellcode_threaded_win_intel_64(params api.Parameters) ([]byte, er
 func meterpreter_reverse_https_threaded_win_intel_64(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	//entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Win64 version
@@ -1281,7 +1281,7 @@ func meterpreter_reverse_https_threaded_win_intel_64(params api.Parameters) ([]b
 func reverse_tcp_shell_inline_win_intel_64(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	//entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Modified metasploit windows/x64/shell_reverse_tcp
@@ -1341,7 +1341,7 @@ func reverse_tcp_shell_inline_win_intel_64(params api.Parameters) ([]byte, error
 func reverse_tcp_stager_threaded_win_intel_64(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	//entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Ported the x32 payload from msfvenom for patching win32 binaries (shellcode1)

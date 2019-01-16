@@ -35,7 +35,7 @@ func iat_reverse_tcp_inline_win_intel_32(params api.Parameters) ([]byte, error) 
 	port := params.Port
 	entry := params.Entry
 	var LoadLibraryA, GetProcAddress, ImageBase uint32
-	ip := params.Ip
+	ip := params.IP
 	xpMode := true
 
 	/*
@@ -141,7 +141,7 @@ func iat_reverse_tcp_inline_threaded_win_intel_32(params api.Parameters) ([]byte
 	entry := params.Entry
 	var LoadLibraryA, GetProcAddress, ImageBase, VirtualAlloc, CreateThread uint32
 	xpMode := true
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Non-staged iat based payload.
@@ -349,7 +349,7 @@ func iat_reverse_tcp_stager_threaded_win_intel_32(params api.Parameters) ([]byte
 	entry := params.Entry
 	var LoadLibraryA, GetProcAddress, ImageBase, VirtualAlloc, CreateThread uint32
 	xpMode := true
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Staged iat based payload.
@@ -686,7 +686,7 @@ func iat_user_shellcode_threaded_win_intel_32(params api.Parameters) ([]byte, er
 func meterpreter_reverse_https_threaded_win_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	//entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Traditional meterpreter reverse https shellcode from metasploit
@@ -777,7 +777,7 @@ func meterpreter_reverse_https_threaded_win_intel_32(params api.Parameters) ([]b
 func reverse_tcp_shell_inline_win_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	//entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 	/*
 	   Modified metasploit windows/shell_reverse_tcp shellcode
 	   to enable continued execution and cave jumping.
@@ -826,7 +826,7 @@ func reverse_tcp_shell_inline_win_intel_32(params api.Parameters) ([]byte, error
 func reverse_tcp_stager_threaded_win_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	//entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Reverse tcp stager. Can be used with windows/shell/reverse_tcp or

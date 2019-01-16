@@ -14,7 +14,7 @@ func init() {
 func reverse_tcp_shell_freebsd_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   Modified metasploit payload/bsd/x86/shell_reverse_tcp
@@ -56,7 +56,7 @@ func reverse_tcp_shell_freebsd_intel_32(params api.Parameters) ([]byte, error) {
 func reverse_tcp_stager_freebsd_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   FOR USE WITH STAGER TCP PAYLOADS INCLUDING METERPRETER

