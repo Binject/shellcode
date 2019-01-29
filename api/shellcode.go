@@ -1,6 +1,7 @@
 package api
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/binary"
 	"log"
@@ -124,4 +125,25 @@ func PackPort(port uint16) (string, error) {
 func PackIP(ip string) string {
 	ipaddr := net.ParseIP(ip).To4()
 	return string(ipaddr)
+}
+
+// ApplyPrefixForkIntel64 - Prepends instructions to fork and have the parent jump to a relative 32-bit address (the entryJump argument)
+//							Intel x64 Linux version
+//
+//							Returns the resulting shellcode
+func ApplyPrefixForkIntel64(shellcode []byte, entryJump uint32, byteOrder binary.ByteOrder) []byte {
+	/*
+		Disassembly:
+		0:  b8 02 00 00 00          mov    eax,0x2
+		5:  cd 80                   int    0x80
+		7:  83 f8 00                cmp    eax,0x0
+		a:  0f 85 xx xx xx xx       jne    <entryJump>
+	*/
+	prefix := bytes.NewBuffer([]byte{0xB8, 0x02, 0x00, 0x00, 0x00, 0xCD, 0x80, 0x83, 0xF8,
+		0x00, 0x0F, 0x85})
+	w := bufio.NewWriter(prefix)
+	binary.Write(w, byteOrder, entryJump)
+	binary.Write(w, byteOrder, shellcode)
+	w.Flush()
+	return prefix.Bytes()
 }
