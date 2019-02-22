@@ -147,3 +147,22 @@ func ApplyPrefixForkIntel64(shellcode []byte, entryJump uint32, byteOrder binary
 	w.Flush()
 	return prefix.Bytes()
 }
+
+// ApplySuffixJmpIntel64 - Appends instructions to jump to the original entryPoint (the parameter)
+//							Intel x64 Linux version
+//
+//							Returns the resulting shellcode
+func ApplySuffixJmpIntel64(shellcode []byte, shellcodeVaddr uint32, entryPoint uint32, byteOrder binary.ByteOrder) []byte {
+	/*
+		Disassembly:
+		0:  e9 00 00 00 00          jmp    <entryJump>
+	*/
+
+	retval := append(shellcode, 0xe9)
+	buf := bytes.NewBuffer(retval)
+	w := bufio.NewWriter(buf)
+	entryJump := entryPoint - (shellcodeVaddr + 5) - 1
+	binary.Write(w, byteOrder, entryJump)
+	w.Flush()
+	return buf.Bytes()
+}
