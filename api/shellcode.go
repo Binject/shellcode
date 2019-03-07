@@ -161,7 +161,7 @@ func ApplySuffixJmpIntel64(shellcode []byte, shellcodeVaddr uint32, entryPoint u
 	retval := append(shellcode, 0xe9)
 	buf := bytes.NewBuffer(retval)
 	w := bufio.NewWriter(buf)
-	entryJump := entryPoint - (shellcodeVaddr + 5) - 1
+	entryJump := entryPoint - (shellcodeVaddr + 5) - uint32(len(shellcode))
 	binary.Write(w, byteOrder, entryJump)
 	w.Flush()
 	return buf.Bytes()
