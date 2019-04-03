@@ -1,6 +1,6 @@
 package modules
 
-import "github.com/awgh/shellcode/api"
+import "github.com/Binject/shellcode/api"
 
 func init() {
 	api.RegisterShellCode(api.Linux, api.Intel, api.Bits32,

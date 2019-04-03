@@ -8,8 +8,13 @@ import (
 	"net"
 )
 
+// Os - Operating System Options Flag
 type Os string
+
+// Arch - Architecture Options Flag
 type Arch string
+
+// Bits - Bit Width Options Flag
 type Bits string
 
 const (
@@ -22,7 +27,7 @@ const (
 	Linux Os = "linux"
 	// FreeBSD flag for FreeBSD OS
 	FreeBSD Os = "freebsd"
-	// Darin flag for Darwin / Mac OS
+	// Darwin flag for Darwin / Mac OS
 	Darwin Os = "darwin"
 
 	// Architecture Options

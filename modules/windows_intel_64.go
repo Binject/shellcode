@@ -3,7 +3,7 @@ package modules
 import (
 	"strings"
 
-	"github.com/awgh/shellcode/api"
+	"github.com/Binject/shellcode/api"
 )
 
 func init() {

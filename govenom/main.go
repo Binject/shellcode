@@ -4,9 +4,9 @@ import (
 	"flag"
 	"log"
 
-	"github.com/awgh/shellcode/api"
+	"github.com/Binject/shellcode/api"
 
-	_ "github.com/awgh/shellcode/modules"
+	_ "github.com/Binject/shellcode/modules"
 )
 
 func main() {
