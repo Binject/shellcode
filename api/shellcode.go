@@ -171,3 +171,23 @@ func ApplySuffixJmpIntel64(shellcode []byte, shellcodeVaddr uint32, entryPoint u
 	w.Flush()
 	return buf.Bytes()
 }
+
+// ApplySuffixJmpIntel32 - Appends instructions to jump to the original entryPoint (the parameter)
+//							Intel x32 Windows version
+//
+//							Returns the resulting shellcode
+func ApplySuffixJmpIntel32(shellcode []byte, shellcodeVaddr uint32, entryPoint uint32, byteOrder binary.ByteOrder) []byte {
+	/*
+		Disassembly:
+		0:  68 					push
+		1:  xx xx xx xx			original entry point (make sure to add the imageBase)
+		5:  ff 24 24            jmp [esp]
+	*/
+
+	retval := append(shellcode, 0x68)
+	buf := bytes.NewBuffer(retval)
+	w := bufio.NewWriter(buf)
+	binary.Write(w, byteOrder, entryPoint)
+	w.Flush()
+	return append(buf.Bytes(), 0xff, 0x24, 0x24)
+}
