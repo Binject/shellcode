@@ -55,18 +55,20 @@ func initShellcodeDir(dirName string) error {
 
 // Lookup - fetches a completed shellcode from the filesystem
 func (r *Repo) Lookup(os api.Os, arch api.Arch, pattern string) ([]byte, error) {
-
-	// check specific directory first
-	dir := filepath.Join(r.Directory, string(os), string(arch))
-	if DirExists(dir) {
-		files, err := WalkMatch(dir, pattern)
-		if err != nil {
-			return nil, err
+	if r.Directory != "" {
+		// check specific directory first
+		dir := filepath.Join(r.Directory, string(os), string(arch))
+		if DirExists(dir) {
+			files, err := WalkMatch(dir, pattern)
+			if err != nil {
+				return nil, err
+			}
+			if len(files) > 0 {
+				return ioutil.ReadFile(files[0])
+			}
 		}
-		if len(files) > 0 {
-			return ioutil.ReadFile(files[0])
-		}
+		// todo: fallback from intel32 or 64 to 32y64
 	}
-	// todo: fallback from intel32 or 64 to 32y64
+	//todo: lookup in the compiled-in modules
 	return nil, errors.New("No Matching Shellcode Found")
 }
