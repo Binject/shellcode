@@ -3,11 +3,11 @@ package modules
 import "github.com/Binject/shellcode/api"
 
 func init() {
-	api.RegisterShellCode(api.Linux, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Linux, api.Intel64,
 		"reverse_tcp_shell", reverse_tcp_shell_linux_intel_64)
-	api.RegisterShellCode(api.Linux, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Linux, api.Intel64,
 		"reverse_tcp_stager", reverse_tcp_stager_linux_intel_64)
-	api.RegisterShellCode(api.Linux, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Linux, api.Intel64,
 		"user_shellcode", user_shellcode_linux_intel_64)
 }
 

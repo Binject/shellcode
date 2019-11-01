@@ -3,13 +3,13 @@ package modules
 import "github.com/Binject/shellcode/api"
 
 func init() {
-	api.RegisterShellCode(api.Darwin, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Darwin, api.Intel64,
 		"beaconing_reverse_shell_tcp", beaconing_reverse_shell_tcp_darwin_intel_64)
-	api.RegisterShellCode(api.Darwin, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Darwin, api.Intel64,
 		"delay_reverse_tcp_shell", delay_reverse_tcp_shell_darwin_intel_64)
-	api.RegisterShellCode(api.Darwin, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Darwin, api.Intel64,
 		"reverse_tcp_shell", reverse_tcp_shell_darwin_intel_64)
-	api.RegisterShellCode(api.Darwin, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Darwin, api.Intel64,
 		"user_shellcode", user_shellcode_darwin_intel_64)
 }
 

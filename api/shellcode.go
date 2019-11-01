@@ -32,17 +32,22 @@ const (
 
 	// Architecture Options
 
-	// Intel flag for Intel/AMD architectures
-	Intel Arch = "intel"
-	// Arm flag for Arm architectures
+	// Intel32 flag for Intel/AMD 32 bit architectures
+	Intel32 Arch = "x32"
+	// Intel64 flag for Intel/AMD 64 bit architectures
+	Intel64 Arch = "x64"
+	// Intel32y64 flag for Intel/AMD 32+64 bit combo shellcodes
+	Intel32y64 Arch = "x32x64"
+	// Arm flag for Arm 32 bit shellcodes
 	Arm Arch = "arm"
+)
 
-	// Bits Options
+var (
+	// Arches - list of human readable architecture names
+	Arches []string = []string{"x32", "x64", "x32x64", "arm"}
 
-	// Bits32 flag for 32 bit architectures
-	Bits32 Bits = "32"
-	// Bits64 flag for 64 bit architectures
-	Bits64 Bits = "64"
+	// Oses - list of human readable OS names
+	Oses []string = []string{"windows", "linux", "darwin"}
 )
 
 // Generator - type for a shellcode generator
@@ -60,18 +65,17 @@ var generators []Generator
 func RegisterShellCode(
 	os Os,
 	arch Arch,
-	bit Bits,
 	name string,
 	fx func(Parameters) ([]byte, error)) {
 
-	generators = append(generators, Generator{Os: os, Arch: arch, Bit: bit, Name: name, Function: fx})
+	generators = append(generators, Generator{Os: os, Arch: arch, Name: name, Function: fx})
 }
 
 // LookupShellCode - looks up shellcode by OS and architecture
-func LookupShellCode(os Os, arch Arch, bit Bits) []Generator {
+func LookupShellCode(os Os, arch Arch) []Generator {
 	var ret []Generator
 	for _, g := range generators {
-		if g.Os == os && g.Arch == arch && g.Bit == bit {
+		if g.Os == os && g.Arch == arch {
 			ret = append(ret, g)
 		}
 	}
@@ -79,8 +83,8 @@ func LookupShellCode(os Os, arch Arch, bit Bits) []Generator {
 }
 
 // PrintShellCodes - looks up shellcode by OS and architecture and prints the output
-func PrintShellCodes(os Os, arch Arch, bit Bits) {
-	gens := LookupShellCode(os, arch, bit)
+func PrintShellCodes(os Os, arch Arch) {
+	gens := LookupShellCode(os, arch)
 	for _, g := range gens {
 		log.Printf("%+v\n", g)
 	}

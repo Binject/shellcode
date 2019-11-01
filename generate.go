@@ -6,10 +6,10 @@ import (
 	"github.com/Binject/shellcode/api"
 )
 
-// Generate - makes a shellcode
-func Generate(os api.Os, arch api.Arch, bit api.Bits, name string, params api.Parameters) ([]byte, error) {
+// Generate - makes a shellcode from a registered template module
+func Generate(os api.Os, arch api.Arch, name string, params api.Parameters) ([]byte, error) {
 
-	gs := api.LookupShellCode(os, arch, bit)
+	gs := api.LookupShellCode(os, arch)
 	for _, g := range gs {
 		if g.Name == name {
 			return g.Function(params)

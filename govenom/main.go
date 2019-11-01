@@ -11,10 +11,9 @@ import (
 
 func main() {
 
-	var os, arch, bit string
+	var os, arch string
 	flag.StringVar(&os, "o", "linux", "Operating System: linux, windows, or freebsd")
 	flag.StringVar(&arch, "a", "intel", "Architecture: intel or arm")
-	flag.StringVar(&bit, "b", "64", "Bits (of the Architecture): 32 or 64")
 	flag.Parse()
 
 	var osFlag api.Os
@@ -44,22 +43,12 @@ func main() {
 	case "amd64":
 		fallthrough
 	case "intel":
-		archFlag = api.Intel
+		archFlag = api.Intel32
 	case "arm":
 		archFlag = api.Arm
 	default:
 		log.Fatal("Unknown Architecture")
 	}
 
-	var bitsFlag api.Bits
-	switch bit {
-	case "32":
-		bitsFlag = api.Bits32
-	case "64":
-		bitsFlag = api.Bits64
-	default:
-		log.Fatal("Unknown Bits")
-	}
-
-	api.PrintShellCodes(osFlag, archFlag, bitsFlag)
+	api.PrintShellCodes(osFlag, archFlag)
 }

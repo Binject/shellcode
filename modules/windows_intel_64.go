@@ -7,22 +7,22 @@ import (
 )
 
 func init() {
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"iat_reverse_tcp_inline", iat_reverse_tcp_inline_win_intel_64)
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"iat_reverse_tcp_inline_threaded", iat_reverse_tcp_inline_threaded_win_intel_64)
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"iat_reverse_tcp_stager_threaded", iat_reverse_tcp_stager_threaded_win_intel_64)
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"iat_user_shellcode_threaded", iat_user_shellcode_threaded_win_intel_64)
 
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"meterpreter_reverse_https_threaded", meterpreter_reverse_https_threaded_win_intel_64)
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"reverse_tcp_shell_inline", reverse_tcp_shell_inline_win_intel_64)
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"reverse_tcp_stager_threaded", reverse_tcp_stager_threaded_win_intel_64)
-	api.RegisterShellCode(api.Windows, api.Intel, api.Bits64,
+	api.RegisterShellCode(api.Windows, api.Intel64,
 		"user_shellcode_threaded", user_shellcode_threaded_win_intel_64)
 }
 
